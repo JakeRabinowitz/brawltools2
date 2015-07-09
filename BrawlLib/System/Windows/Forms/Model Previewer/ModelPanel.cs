@@ -48,7 +48,7 @@ namespace System.Windows.Forms
         public Vector2 DefaultRotate { get { return _defaultRotate; } set { _defaultRotate = value; } }
 
         // X = positive is In, Y: positive is Up, Z: Positive is Right
-        public Vector3 _defaultTranslate = new Vector3(-50f, 12f, 0f);
+        public Vector3 _defaultTranslate = new Vector3(-50f, 10f, 0f);
         public Vector2 _defaultRotate = new Vector2(0f, -90f);
 
         public event GLRenderEventHandler PreRender, PostRender;
