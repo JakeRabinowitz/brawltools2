@@ -547,11 +547,10 @@ namespace System.Windows.Forms
             // 
             // btnExportToAnimatedGIF
             // 
-            this.btnExportToAnimatedGIF.Enabled = false;
             this.btnExportToAnimatedGIF.Name = "btnExportToAnimatedGIF";
             this.btnExportToAnimatedGIF.Size = new System.Drawing.Size(292, 22);
             this.btnExportToAnimatedGIF.Text = "To Animated GIF";
-            this.btnExportToAnimatedGIF.Visible = false;
+            this.btnExportToAnimatedGIF.Click += new System.EventHandler(this.exportToAnimatedGIFToolStripMenuItem_Click);
             // 
             // saveLocationToolStripMenuItem
             // 

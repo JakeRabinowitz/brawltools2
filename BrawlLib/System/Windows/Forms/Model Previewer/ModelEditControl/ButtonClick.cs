@@ -33,10 +33,10 @@ namespace System.Windows.Forms
         }
         private string _imgExt = ".png";
         private int _imgExtIndex = 0;
-        public int ImgExtIndex 
+        public int ImgExtIndex
         {
             get { return _imgExtIndex; }
-            set 
+            set
             {
                 switch (_imgExtIndex = value)
                 {
@@ -76,7 +76,7 @@ namespace System.Windows.Forms
                     FileInfo[] files = dir.GetFiles();
                     int i = 0;
                     string name = "BrawlboxScreencap";
-                    Top:
+                Top:
                     foreach (FileInfo f in files)
                         if (f.Name == name + i + _imgExt)
                         {
@@ -219,7 +219,7 @@ namespace System.Windows.Forms
         }
 
         public unsafe void SaveSettings(bool maximize)
-        {            
+        {
             try
             {
                 BBVS settings = new BBVS();
@@ -433,7 +433,7 @@ namespace System.Windows.Forms
                 else
                     showAssets.Checked = false;
         }
-        private void btnOptionToggle_Click(object sender, EventArgs e) 
+        private void btnOptionToggle_Click(object sender, EventArgs e)
         {
             showOptions.Checked = !showOptions.Checked;
             //if (!showOptions.Checked)
@@ -460,7 +460,7 @@ namespace System.Windows.Forms
                     showMoveset.Checked = true;
                 else
                     showKeyframes.Checked = false;
-            
+
             //if (pnlMoveset._mainMoveset != null)
             //    showMoveset.Checked = !showMoveset.Checked;
         }
@@ -468,18 +468,10 @@ namespace System.Windows.Forms
         public void btnNextFrame_Click(object sender, EventArgs e) { pnlPlayback.numFrameIndex.Value++; }
         public void btnPlay_Click(object sender, EventArgs e)
         {
-            if (pnlMoveset._mainMoveset != null && pnlMoveset.selectedActionNodes.Count > 0)
-                if (pnlMoveset.animTimer.Enabled)
-                    pnlMoveset.StopScript();
-                else
-                    pnlMoveset.RunScript();
+            if (animTimer.Enabled)
+                StopAnim();
             else
-            {
-                if (animTimer.Enabled)
-                    StopAnim();
-                else
-                    PlayAnim();
-            }
+                PlayAnim();
         }
         private void setColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -617,7 +609,7 @@ namespace System.Windows.Forms
                                 if (_currentControl is CHR0Editor)
                                 {
                                     chr0Editor._onlyKeys = true;
-                                    chr0Editor.btnPasteAll.PerformClick(); 
+                                    chr0Editor.btnPasteAll.PerformClick();
                                     return true;
                                 }
                             }
