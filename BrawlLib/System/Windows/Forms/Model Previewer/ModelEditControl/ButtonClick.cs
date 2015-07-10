@@ -153,15 +153,16 @@ namespace System.Windows.Forms
                 {
                     String actionName = pnlMoveset.SelectedObject.ToString();
                     string outPath = ScreenCapBgLocText.Text + "\\" + actionName;
-                    DirectoryInfo dir = new DirectoryInfo(outPath);
-                    // OUTPUT FILE TO DIRECTORY WITH ACTION NAME, THEN NAME IMAGES WITH "01.png"
+                    DirectoryInfo dir = System.IO.Directory.CreateDirectory(outPath);
 
                     FileInfo[] files = dir.GetFiles();
                     int i = 0;
                     foreach (Image img in images)
                     {
                         Bitmap bmp = new Bitmap(img);
-                        bmp.Save(outPath, ImageFormat.Png);
+                        String filePath = String.Format("{0}\\{1}.png", outPath, i.ToString("D2"));
+                        bmp.Save(filePath, ImageFormat.Png);
+                        i++;
                     }
                 }
                 catch
