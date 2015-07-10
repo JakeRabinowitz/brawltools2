@@ -506,7 +506,7 @@ namespace System.Windows.Forms
 
             if (_capture)
             {
-                RenderToGIF(images.ToArray());
+                DumpImagesToFolder(images.ToArray());
                 images.Clear();
                 _capture = false;
             }

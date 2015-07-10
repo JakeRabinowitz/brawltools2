@@ -145,6 +145,32 @@ namespace System.Windows.Forms
             btnPlay_Click(null, null);
         }
 
+        private void DumpImagesToFolder(Image[] images)
+        {
+            if (!String.IsNullOrEmpty(ScreenCapBgLocText.Text))
+            {
+                try
+                {
+                    String actionName = pnlMoveset.SelectedObject.ToString();
+                    string outPath = ScreenCapBgLocText.Text + "\\" + actionName;
+                    DirectoryInfo dir = new DirectoryInfo(outPath);
+                    // OUTPUT FILE TO DIRECTORY WITH ACTION NAME, THEN NAME IMAGES WITH "01.png"
+
+                    FileInfo[] files = dir.GetFiles();
+                    int i = 0;
+                    foreach (Image img in images)
+                    {
+                        Bitmap bmp = new Bitmap(img);
+                        bmp.Save(outPath, ImageFormat.Png);
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
         private void RenderToGIF(Image[] images)
         {
             string outputFilePath = Application.StartupPath + "\\test.gif";
