@@ -147,6 +147,7 @@ namespace System.Windows.Forms
         private ToolStripMenuItem btnExportToImgNoTransparency;
         private ToolStripMenuItem btnExportToImgWithTransparency;
         private ToolStripMenuItem btnExportToAnimatedGIF;
+        private ToolStripMenuItem dumpAttackAnimationFrames;
         private ToolStripMenuItem saveLocationToolStripMenuItem;
         public ToolStripMenuItem ScreenCapBgLocText;
         private ToolStripMenuItem displaySettingToolStripMenuItem;
@@ -170,6 +171,7 @@ namespace System.Windows.Forms
         private ToolStripMenuItem dontHighlightBonesAndVerticesToolStripMenuItem;
         public ToolStripMenuItem enablePointAndLineSmoothingToolStripMenuItem;
         public ToolStripMenuItem enableTextOverlaysToolStripMenuItem;
+        private ToolStripMenuItem btnDumpAttackAnimationFrames;
         private Splitter spltMoveset;
 
         private void InitializeComponent()
@@ -195,11 +197,12 @@ namespace System.Windows.Forms
             this.btnUndo = new System.Windows.Forms.ToolStripMenuItem();
             this.btnRedo = new System.Windows.Forms.ToolStripMenuItem();
             this.takeScreenshotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnExportToImgNoTransparency = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnExportToImgWithTransparency = new System.Windows.Forms.ToolStripMenuItem();
             this.btnExportToAnimatedGIF = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDumpAttackAnimationFrames = new System.Windows.Forms.ToolStripMenuItem();
             this.saveLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ScreenCapBgLocText = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExportToImgNoTransparency = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnExportToImgWithTransparency = new System.Windows.Forms.ToolStripMenuItem();
             this.imageFormatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modifyLightingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -520,20 +523,54 @@ namespace System.Windows.Forms
             // takeScreenshotToolStripMenuItem
             // 
             this.takeScreenshotToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnExportToAnimatedGIF,
+            this.btnDumpAttackAnimationFrames,
+            this.saveLocationToolStripMenuItem,
             this.btnExportToImgNoTransparency,
             this.btnExportToImgWithTransparency,
-            this.btnExportToAnimatedGIF,
-            this.saveLocationToolStripMenuItem,
             this.imageFormatToolStripMenuItem});
             this.takeScreenshotToolStripMenuItem.Name = "takeScreenshotToolStripMenuItem";
             this.takeScreenshotToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.takeScreenshotToolStripMenuItem.Text = "Take Screenshot";
             // 
+            // btnExportToAnimatedGIF
+            // 
+            this.btnExportToAnimatedGIF.Name = "btnExportToAnimatedGIF";
+            this.btnExportToAnimatedGIF.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.btnExportToAnimatedGIF.Size = new System.Drawing.Size(323, 22);
+            this.btnExportToAnimatedGIF.Text = "Dump Frames for Animation";
+            this.btnExportToAnimatedGIF.Click += new System.EventHandler(this.exportToAnimatedGIFToolStripMenuItem_Click);
+            // 
+            // btnDumpAttackAnimationFrames
+            // 
+            this.btnDumpAttackAnimationFrames.Name = "btnDumpAttackAnimationFrames";
+            this.btnDumpAttackAnimationFrames.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) | System.Windows.Forms.Keys.A)));
+            this.btnDumpAttackAnimationFrames.Size = new System.Drawing.Size(323, 22);
+            this.btnDumpAttackAnimationFrames.Text = "Dump Frames For All Animations";
+            this.btnDumpAttackAnimationFrames.Click += new System.EventHandler(this.dumpAttackAnimationFramesToolStripMenuItem_Click);
+            // 
+            // saveLocationToolStripMenuItem
+            // 
+            this.saveLocationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ScreenCapBgLocText});
+            this.saveLocationToolStripMenuItem.Name = "saveLocationToolStripMenuItem";
+            this.saveLocationToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
+            this.saveLocationToolStripMenuItem.Text = "Save Location";
+            // 
+            // ScreenCapBgLocText
+            // 
+            this.ScreenCapBgLocText.Name = "ScreenCapBgLocText";
+            this.ScreenCapBgLocText.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.D)));
+            this.ScreenCapBgLocText.Size = new System.Drawing.Size(184, 22);
+            this.ScreenCapBgLocText.Text = "<null>";
+            this.ScreenCapBgLocText.Click += new System.EventHandler(this.ScreenCapBgLocText_Click);
+            // 
             // btnExportToImgNoTransparency
             // 
             this.btnExportToImgNoTransparency.Name = "btnExportToImgNoTransparency";
             this.btnExportToImgNoTransparency.ShortcutKeyDisplayString = "Ctrl+Shift+I";
-            this.btnExportToImgNoTransparency.Size = new System.Drawing.Size(292, 22);
+            this.btnExportToImgNoTransparency.Size = new System.Drawing.Size(323, 22);
             this.btnExportToImgNoTransparency.Text = "With Background";
             this.btnExportToImgNoTransparency.Click += new System.EventHandler(this.btnExportToImgNoTransparency_Click);
             // 
@@ -541,39 +578,14 @@ namespace System.Windows.Forms
             // 
             this.btnExportToImgWithTransparency.Name = "btnExportToImgWithTransparency";
             this.btnExportToImgWithTransparency.ShortcutKeyDisplayString = "Ctrl+Alt+I";
-            this.btnExportToImgWithTransparency.Size = new System.Drawing.Size(292, 22);
+            this.btnExportToImgWithTransparency.Size = new System.Drawing.Size(323, 22);
             this.btnExportToImgWithTransparency.Text = "With Transparent Background";
             this.btnExportToImgWithTransparency.Click += new System.EventHandler(this.btnExportToImgWithTransparency_Click);
-            // 
-            // btnExportToAnimatedGIF
-            // 
-            this.btnExportToAnimatedGIF.Name = "btnExportToAnimatedGIF";
-            this.btnExportToAnimatedGIF.Size = new System.Drawing.Size(292, 22);
-            this.btnExportToAnimatedGIF.Text = "To Animated GIF";
-            this.btnExportToAnimatedGIF.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.A)));
-            this.btnExportToAnimatedGIF.ShowShortcutKeys = true;
-            this.btnExportToAnimatedGIF.Click += new System.EventHandler(this.exportToAnimatedGIFToolStripMenuItem_Click);
-            // 
-            // saveLocationToolStripMenuItem
-            // 
-            this.saveLocationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ScreenCapBgLocText});
-            this.saveLocationToolStripMenuItem.Name = "saveLocationToolStripMenuItem";
-            this.saveLocationToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
-            this.saveLocationToolStripMenuItem.Text = "Save Location";
-            // 
-            // ScreenCapBgLocText
-            // 
-            this.ScreenCapBgLocText.Name = "ScreenCapBgLocText";
-            this.ScreenCapBgLocText.Size = new System.Drawing.Size(110, 22);
-            this.ScreenCapBgLocText.Text = "<null>";
-            this.ScreenCapBgLocText.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.D)));
-            this.ScreenCapBgLocText.Click += new System.EventHandler(this.ScreenCapBgLocText_Click);
             // 
             // imageFormatToolStripMenuItem
             // 
             this.imageFormatToolStripMenuItem.Name = "imageFormatToolStripMenuItem";
-            this.imageFormatToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.imageFormatToolStripMenuItem.Size = new System.Drawing.Size(323, 22);
             this.imageFormatToolStripMenuItem.Text = "Image Format: PNG";
             this.imageFormatToolStripMenuItem.Click += new System.EventHandler(this.imageFormatToolStripMenuItem_Click);
             // 
@@ -741,7 +753,7 @@ namespace System.Windows.Forms
             this.showKeyframes,
             this.detachViewerToolStripMenuItem});
             this.editorsToolStripMenuItem.Name = "editorsToolStripMenuItem";
-            this.editorsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.editorsToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.editorsToolStripMenuItem.Text = "Panels";
             // 
             // showOptions
@@ -821,7 +833,7 @@ namespace System.Windows.Forms
             this.resetCameraToolStripMenuItem,
             this.showCameraCoordinatesToolStripMenuItem});
             this.backColorToolStripMenuItem.Name = "backColorToolStripMenuItem";
-            this.backColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.backColorToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.backColorToolStripMenuItem.Text = "Viewer";
             // 
             // backgroundToolStripMenuItem
@@ -985,7 +997,7 @@ namespace System.Windows.Forms
             this.toggleNormals,
             this.boundingBoxToolStripMenuItem});
             this.modelToolStripMenuItem.Name = "modelToolStripMenuItem";
-            this.modelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.modelToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.modelToolStripMenuItem.Text = "Model";
             // 
             // toggleBones
@@ -1038,7 +1050,7 @@ namespace System.Windows.Forms
             this.hitboxesOffToolStripMenuItem,
             this.hurtboxesOffToolStripMenuItem});
             this.movesetToolStripMenuItem1.Name = "movesetToolStripMenuItem1";
-            this.movesetToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.movesetToolStripMenuItem1.Size = new System.Drawing.Size(135, 22);
             this.movesetToolStripMenuItem1.Text = "Moveset";
             this.movesetToolStripMenuItem1.Visible = false;
             // 
@@ -1074,7 +1086,7 @@ namespace System.Windows.Forms
             this.sCN0ToolStripMenuItem,
             this.firstPersonSCN0CamToolStripMenuItem});
             this.fileTypesToolStripMenuItem.Name = "fileTypesToolStripMenuItem";
-            this.fileTypesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.fileTypesToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.fileTypesToolStripMenuItem.Text = "Animations";
             // 
             // playCHR0ToolStripMenuItem
@@ -1194,7 +1206,7 @@ namespace System.Windows.Forms
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
@@ -1210,16 +1222,16 @@ namespace System.Windows.Forms
             // btnLoadMoveset
             // 
             this.btnLoadMoveset.Name = "btnLoadMoveset";
-            this.btnLoadMoveset.Size = new System.Drawing.Size(100, 22);
+            this.btnLoadMoveset.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.M)));
+            this.btnLoadMoveset.Size = new System.Drawing.Size(177, 22);
             this.btnLoadMoveset.Text = "Load";
-            this.btnLoadMoveset.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.M)));
-            this.btnLoadMoveset.ShowShortcutKeys = true;
             this.btnLoadMoveset.Click += new System.EventHandler(this.btnLoadMoveset_Click);
             // 
             // btnSaveMoveset
             // 
             this.btnSaveMoveset.Name = "btnSaveMoveset";
-            this.btnSaveMoveset.Size = new System.Drawing.Size(100, 22);
+            this.btnSaveMoveset.Size = new System.Drawing.Size(177, 22);
             this.btnSaveMoveset.Text = "Save";
             this.btnSaveMoveset.Click += new System.EventHandler(this.btnSaveMoveset_Click);
             // 
@@ -1876,6 +1888,7 @@ namespace System.Windows.Forms
                 }
             }
         }
+
     }
 
     public class TransparentPanel : Panel

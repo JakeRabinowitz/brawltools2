@@ -451,6 +451,28 @@ namespace System.Windows.Forms
             if (_animFrame <= pnlPlayback.numFrameIndex.Maximum)
                 pnlPlayback.numFrameIndex.Value = _animFrame;
         }
+        public void RecordAnimationFrames()
+        {
+            if (GetSelectedBRRESFile(TargetAnimType) == null)
+                return;
+
+            _playing = false;
+            RenderBones = false;
+            toggleBones.Checked = false;
+            EnableTransformEdit = false;
+
+            pnlMoveset.SetFrame(1);
+            images.Clear();
+
+            while (_animFrame < _maxFrame)
+            {
+                images.Add(modelPanel.GrabScreenshot(false));
+                pnlMoveset.SetFrame(_animFrame + 1);
+            }
+            DumpImagesToFolder(images.ToArray());
+            images.Clear();
+        }
+
         private bool wasOff = false;
         public bool runningAction = false;
         public void PlayAnim()
@@ -467,12 +489,15 @@ namespace System.Windows.Forms
 
             if (_animFrame < _maxFrame)
             {
+                Console.WriteLine("Animation Starting: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
                 animTimer.Start();
                 pnlPlayback.btnPlay.Text = "Stop";
             }
         }
         public void StopAnim()
         {
+            Console.WriteLine("Animation Stopping: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
+
             animTimer.Stop();
 
             _playing = false;
@@ -486,10 +511,17 @@ namespace System.Windows.Forms
                 DumpImagesToFolder(images.ToArray());
                 images.Clear();
                 _capture = false;
+                _isDoingAnAnimation = false;
+                if (_isDoingMultiAnimationDump)
+                {
+                    continueDumpingAnimations();
+                }
             }
         }
         private void animTimer_Tick(object sender, EventArgs e)
         {
+            Console.WriteLine("Animation Ticking: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
+
             if (GetSelectedBRRESFile(TargetAnimType) == null)
                 return;
 

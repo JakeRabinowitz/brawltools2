@@ -14,6 +14,7 @@ using System.Drawing.Imaging;
 using Gif.Components;
 using OpenTK.Graphics.OpenGL;
 using BrawlLib.Imaging;
+using System.Threading;
 
 namespace System.Windows.Forms
 {
@@ -144,6 +145,61 @@ namespace System.Windows.Forms
             _capture = true;
             btnPlay_Click(null, null);
         }
+
+        public bool _isDoingAnAnimation = false;
+        public bool _isDoingMultiAnimationDump = false;
+        private void dumpAttackAnimationFramesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int numberOfActions = pnlMoveset.SubActionsList.Items.Count;
+            _isDoingMultiAnimationDump = true;
+            images = new List<Image>();
+            for (int i = 0; i < numberOfActions; i++)
+            {
+                pnlMoveset.SubActionsList.SelectedIndex = i;
+                _loop = false;
+                _capture = true;
+                String actionName = pnlMoveset.SelectedObject.ToString();
+                images.Clear();
+                if (movesToOutput.Contains(actionName))
+                {
+                    _isDoingAnAnimation = true;
+                    SetFrame(1);
+                    PlayAnim();
+                    break;
+                }
+            }
+        }
+
+        private void continueDumpingAnimations()
+        {
+            int numberOfActions = pnlMoveset.SubActionsList.Items.Count;
+            for (int i = pnlMoveset.SubActionsList.SelectedIndex + 1; i < numberOfActions; i++)
+            {
+                pnlMoveset.SubActionsList.SelectedIndex = i;
+                _loop = false;
+                _capture = true;
+                String actionName = pnlMoveset.SelectedObject.ToString();
+                images.Clear();
+                if (movesToOutput.Contains(actionName))
+                {
+                    _isDoingAnAnimation = true;
+                    SetFrame(1);
+                    PlayAnim();
+                    break;
+                }
+            }
+        }
+
+        private static HashSet<String> movesToOutput = new HashSet<string> { 
+            "Attack11", "Attack12", "Attack13", "Attack100Start", "Attack100", "AttackEnd", "AttackDash", 
+            "AttackS3Hi", "AttackS3S", "AttackS3S2", "AttackS3S3", "AttackS3Lw", "AttackHi3", "AttackLw3", 
+            "AttackS4Start", "AttackS4S", "AttackS4S_", "AttackS4S2", "AttackS4S__", "AttackS4Hold", 
+            "AttackHi4Start", "AttackHi4", "AttackHi4Hold", "AttackLw4Start", "AttackLw4", "AttackLw4Hold", 
+            "AttackAirN", "AttackAirF", "AttackAirB", "AttackAirHi", "AttackAirLw", "Catch", "CatchDash", 
+            "CatchTurn", "CatchAttack", "CliffAttackQuick", "CliffClimbQuick", "CliffEscapeQuick", 
+            "CliffJumpQuick1", "CliffJumpQuick2", "CliffAttackSlow", "CliffClimbSlow", "CliffEscapeSlow", 
+            "CliffJumpSlow1", "CliffJumpSlow2", "GekikaraWait", "AppealHiR", "AppealHiL", "AppealSR", 
+            "AppealSL", "AppealLwR", "AppealLwL" };
 
         private static Dictionary<String, String> modelNameToCharacterName = new Dictionary<string, string> {
             {"captain", "Captain Falcon"}, {"dedede", "King Dedede"}, {"diddy", "Diddy Kong"},

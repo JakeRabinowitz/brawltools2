@@ -76,7 +76,7 @@ namespace System.Windows.Forms
         private TabPage HurtboxTab;
         private CheckBox checkBox1;
         private ListBox ActionsList;
-        private ListBox SubActionsList;
+        public ListBox SubActionsList;
         private AttributeGrid attributeGridMain;
         private AttributeGrid attributeGridSSE;
         public ScriptEditor scriptEditor1;
