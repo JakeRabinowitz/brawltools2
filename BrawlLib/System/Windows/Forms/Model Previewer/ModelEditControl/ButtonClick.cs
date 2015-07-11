@@ -156,7 +156,7 @@ namespace System.Windows.Forms
                     DirectoryInfo dir = System.IO.Directory.CreateDirectory(outPath);
 
                     FileInfo[] files = dir.GetFiles();
-                    int i = 0;
+                    int i = 1;
                     foreach (Image img in images)
                     {
                         Bitmap bmp = new Bitmap(img);
