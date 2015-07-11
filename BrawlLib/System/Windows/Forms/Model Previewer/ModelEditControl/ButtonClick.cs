@@ -199,7 +199,10 @@ namespace System.Windows.Forms
             "CatchTurn", "CatchAttack", "CliffAttackQuick", "CliffClimbQuick", "CliffEscapeQuick", 
             "CliffJumpQuick1", "CliffJumpQuick2", "CliffAttackSlow", "CliffClimbSlow", "CliffEscapeSlow", 
             "CliffJumpSlow1", "CliffJumpSlow2", "GekikaraWait", "AppealHiR", "AppealHiL", "AppealSR", 
-            "AppealSL", "AppealLwR", "AppealLwL" };
+            "AppealSL", "AppealLwR", "AppealLwL", "SpecialN", "SpecialNTurn", "SpecialAirN", "SpecialAirNTurn", 
+            "SpecialSStart", "SpecialS", "SpecialAirSStart", "SpecialAirS", "SpecialHi", "SpecialAirHi", 
+            "SpecialHiCatch", "SpecialHiThrow", "SpecialLw", "SpecialLwEnd", "SpecialAirLwEndAir", 
+            "SpecialLwEndAir", "SpecialAirLwnEnd", "SpecialLwWall",};
 
         private static Dictionary<String, String> modelNameToCharacterName = new Dictionary<string, string> {
             {"captain", "Captain Falcon"}, {"dedede", "King Dedede"}, {"diddy", "Diddy Kong"},

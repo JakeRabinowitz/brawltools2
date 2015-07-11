@@ -391,7 +391,10 @@ namespace BrawlLib.SSBB.ResourceNodes
             _event = ev._event;
             EventData = ev.EventData;
             if (_event != 101320704)
-                flags = ev.Children[12] as HitboxFlagsNode;
+                if (ev.Children.Count > 12)
+                {
+                    flags = ev.Children[12] as HitboxFlagsNode;
+                }
             if (_event == 0x06150F00)
                 specialFlags = ev.Children[14] as SpecialHitboxFlagsNode;
         }

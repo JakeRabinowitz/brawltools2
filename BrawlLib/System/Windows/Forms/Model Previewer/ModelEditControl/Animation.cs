@@ -489,15 +489,12 @@ namespace System.Windows.Forms
 
             if (_animFrame < _maxFrame)
             {
-                Console.WriteLine("Animation Starting: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
                 animTimer.Start();
                 pnlPlayback.btnPlay.Text = "Stop";
             }
         }
         public void StopAnim()
         {
-            Console.WriteLine("Animation Stopping: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
-
             animTimer.Stop();
 
             _playing = false;
@@ -520,8 +517,6 @@ namespace System.Windows.Forms
         }
         private void animTimer_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine("Animation Ticking: " + System.Threading.Thread.CurrentThread.ManagedThreadId);
-
             if (GetSelectedBRRESFile(TargetAnimType) == null)
                 return;
 
@@ -535,6 +530,7 @@ namespace System.Windows.Forms
                     pnlMoveset.SetFrame(1);
             else
                 pnlMoveset.SetFrame(_animFrame + 1);
+
         }
     }
 }
