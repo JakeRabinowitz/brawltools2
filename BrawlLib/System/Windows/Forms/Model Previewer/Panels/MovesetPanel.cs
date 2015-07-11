@@ -1715,7 +1715,7 @@ namespace System.Windows.Forms
                 ResetModelVisEtc();
 
             if (subactions)
-                _mainWindow.SetFrame(index + 1);
+                _mainWindow.SetFrame(index);
 
             if (!_updating)
             {

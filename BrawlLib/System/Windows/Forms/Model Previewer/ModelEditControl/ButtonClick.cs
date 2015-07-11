@@ -152,7 +152,11 @@ namespace System.Windows.Forms
                 try
                 {
                     String actionName = pnlMoveset.SelectedObject.ToString();
-                    string outPath = ScreenCapBgLocText.Text + "\\" + actionName;
+                    String characterModelName = models.SelectedItem.ToString();
+
+                    // TODO: Convert String to Human Readble String (drop "Fit" and the number should be enough, if feeling cool, convert name to english.
+                    //TODO: Adjust starting camera position so that the character is on the side (so dash attacks fit).
+                    string outPath = ScreenCapBgLocText.Text + "\\" + characterModelName +"\\" + actionName;
                     DirectoryInfo dir = System.IO.Directory.CreateDirectory(outPath);
 
                     FileInfo[] files = dir.GetFiles();

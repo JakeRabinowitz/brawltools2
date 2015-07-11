@@ -1812,7 +1812,8 @@ namespace System.Windows.Forms
 
             m_DelegateOpenFile = new DelegateOpenFile(this.OpenFile);
 
-            ScreenCapBgLocText.Text = Application.StartupPath;
+            //ScreenCapBgLocText.Text = Application.StartupPath;
+            ScreenCapBgLocText.Text = @"G:\SmashBrosGifExporter";
         }
 
         #endregion
