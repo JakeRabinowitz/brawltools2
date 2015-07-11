@@ -852,6 +852,7 @@ namespace System.Windows.Forms
             this.setColorToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.setColorToolStripMenuItem.Text = "Set Color";
             this.setColorToolStripMenuItem.Click += new System.EventHandler(this.setColorToolStripMenuItem_Click);
+            modelPanel.BackColor = Color.Black;
             // 
             // loadImageToolStripMenuItem
             // 
@@ -1005,7 +1006,7 @@ namespace System.Windows.Forms
             this.toggleBones.Checked = true;
             this.toggleBones.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toggleBones.Name = "toggleBones";
-            this.toggleBones.ShortcutKeyDisplayString = "V Key";
+            this.toggleBones.ShortcutKeyDisplayString = "B Key";
             this.toggleBones.Size = new System.Drawing.Size(159, 22);
             this.toggleBones.Text = "Bones";
             this.toggleBones.Click += new System.EventHandler(this.toggleBonesToolStripMenuItem_Click);
