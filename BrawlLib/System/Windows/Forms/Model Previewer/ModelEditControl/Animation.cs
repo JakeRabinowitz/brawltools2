@@ -51,7 +51,7 @@ namespace System.Windows.Forms
                 return;
 
             float scale = (box._value + offset) / box._value;
-            
+
             float value = (float)Math.Round(box._value * scale, 3);
             if (value == 0) return;
             box.Value = value;
@@ -257,7 +257,7 @@ namespace System.Windows.Forms
                 foreach (MDL0Node n in _targetModels)
                     UpdateModel(n);
 
-            if (!_playing) 
+            if (!_playing)
                 UpdatePropDisplay();
 
             modelPanel.Invalidate();
@@ -294,7 +294,7 @@ namespace System.Windows.Forms
             else
                 model.ApplyCLR(null, 0);
         }
-        
+
         public void AnimChanged(AnimType type)
         {
             //Update animation editors
@@ -318,7 +318,7 @@ namespace System.Windows.Forms
                     pat0Editor.UpdateBoxes();
                     pnlAssets.UpdatePAT0Selection(SelectedPAT0);
                     break;
-                case AnimType.VIS: 
+                case AnimType.VIS:
                     vis0Editor.UpdateAnimation();
                     break;
                 case AnimType.SCN:
@@ -326,7 +326,7 @@ namespace System.Windows.Forms
                     //    m.SetSCN0(_scn0);
                     scn0Editor.tabControl1_Selected(null, new TabControlEventArgs(null, scn0Editor.tabIndex, TabControlAction.Selected));
                     break;
-                case AnimType.CLR: 
+                case AnimType.CLR:
                     clr0Editor.UpdateAnimation();
                     break;
             }
@@ -421,7 +421,7 @@ namespace System.Windows.Forms
 
             if (index > _maxFrame || index < 0)
                 return;
-            
+
             index = TargetModel == null ? 0 : index;
 
             CurrentFrame = index;
@@ -458,32 +458,17 @@ namespace System.Windows.Forms
             if (GetSelectedBRRESFile(TargetAnimType) == null || _maxFrame == 1)
                 return;
 
-            _playing = true;
-
-            if (disableBonesWhenPlayingToolStripMenuItem.Checked)
-            {
-                if (RenderBones == false)
-                    wasOff = true;
-
-                RenderBones = false;
-                toggleBones.Checked = false;
-            }
-
+            _playing = false;
+            RenderBones = false;
+            toggleBones.Checked = false;
             EnableTransformEdit = false;
 
-            if (_animFrame >= _maxFrame) //Reset anim
-                SetFrame(1);
+            pnlMoveset.SetFrame(1);
 
             if (_animFrame < _maxFrame)
             {
                 animTimer.Start();
                 pnlPlayback.btnPlay.Text = "Stop";
-            }
-            else
-            {
-                if (disableBonesWhenPlayingToolStripMenuItem.Checked)
-                    RenderBones = true;
-                _playing = false;
             }
         }
         public void StopAnim()
@@ -491,14 +476,6 @@ namespace System.Windows.Forms
             animTimer.Stop();
 
             _playing = false;
-
-            if (disableBonesWhenPlayingToolStripMenuItem.Checked)
-            {
-                if (!wasOff)
-                    RenderBones = true;
-
-                wasOff = false;
-            }
 
             pnlPlayback.btnPlay.Text = "Play";
             EnableTransformEdit = true;
@@ -516,16 +493,16 @@ namespace System.Windows.Forms
             if (GetSelectedBRRESFile(TargetAnimType) == null)
                 return;
 
+            if (_capture)
+                images.Add(modelPanel.GrabScreenshot(false));
+
             if (_animFrame >= _maxFrame)
                 if (!_loop)
                     StopAnim();
                 else
-                    SetFrame(1);
+                    pnlMoveset.SetFrame(1);
             else
-                SetFrame(_animFrame + 1);
-
-            if (_capture)
-                images.Add(modelPanel.GrabScreenshot(false));
+                pnlMoveset.SetFrame(_animFrame + 1);
         }
     }
 }
