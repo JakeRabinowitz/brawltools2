@@ -1619,7 +1619,7 @@ namespace System.Windows.Forms
             _mainWindow._updating = true;
             _mainWindow.pnlPlayback.chkLoop.Checked = selectedSubActionGrp._flags.HasFlag(AnimationFlags.Loop);
             _mainWindow._updating = false;
-            SetFrame(0);
+            SetFrame(1);
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

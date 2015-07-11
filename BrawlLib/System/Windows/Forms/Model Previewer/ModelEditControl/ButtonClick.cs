@@ -145,6 +145,21 @@ namespace System.Windows.Forms
             btnPlay_Click(null, null);
         }
 
+        private static Dictionary<String, String> modelNameToCharacterName = new Dictionary<string, string> {
+            {"captain", "Captain Falcon"}, {"dedede", "King Dedede"}, {"diddy", "Diddy Kong"},
+            {"donkey", "Donkey Kong"}, {"falco", "Falco"}, {"fox", "Fox"}, {"gamewatch", "Mr. Game & Watch"},
+            {"ganon", "Ganondorf"}, {"gkoopa", "GIGA Bowser"}, {"ike", "Ike"}, {"kirby", "Kirby"},
+            {"koopa", "Bowser"}, {"link", "Link"}, {"lucario", "Lucario"}, {"lucas", "Lucas"},
+            {"luigi", "Luigi"}, {"mario", "Mario"}, {"marth", "Marth"}, {"metaknight", "Meta Knight"},
+            {"ness", "Ness"}, {"peach", "Peach"}, {"pikachu", "Pikachu"}, {"pikmin", "Captain Olimar"}, {"pit", "Pit"},
+            {"pokefushigisou", "Ivysaur"}, {"pokelizardon", "Charizard"}, {"poketrainer", "PokÈmon Trainer"},
+            {"pokezenigame", "Squirtle"}, {"popo", "Ice Climbers"}, {"purin", "Jigglypuff"}, {"robot", "R.O.B."},
+            {"samus", "Samus"}, {"sheik", "Sheik"}, {"snake", "Snake"}, {"sonic", "Sonic"}, {"szerosuit", "Zero Suit Samus"},
+            {"toonlink", "Toon Link"}, {"wario", "Wario"}, {"warioman", "Warioman"}, {"wolf", "Wolf"},
+            {"yoshi", "Yoshi"}, {"zelda", "Zelda"}, {"zakoball", "Green Alloy"}, {"zakochild", "Yellow Alloy"},
+            {"zakogirl", "Blue Alloy"}, {"zakoboy ", "Red Alloy"}
+};
+
         private void DumpImagesToFolder(Image[] images)
         {
             if (!String.IsNullOrEmpty(ScreenCapBgLocText.Text))
@@ -154,9 +169,17 @@ namespace System.Windows.Forms
                     String actionName = pnlMoveset.SelectedObject.ToString();
                     String characterModelName = models.SelectedItem.ToString();
 
-                    // TODO: Convert String to Human Readble String (drop "Fit" and the number should be enough, if feeling cool, convert name to english.
+                    if (characterModelName.StartsWith("Fit"))
+                    {
+                        characterModelName = characterModelName.Substring(3);
+                        characterModelName = characterModelName.Substring(0, characterModelName.Length - 2);
+                        if (modelNameToCharacterName.ContainsKey(characterModelName.ToLower()))
+                        {
+                            characterModelName = modelNameToCharacterName[characterModelName.ToLower()];
+                        }
+                    }
                     //TODO: Adjust starting camera position so that the character is on the side (so dash attacks fit).
-                    string outPath = ScreenCapBgLocText.Text + "\\" + characterModelName +"\\" + actionName;
+                    string outPath = ScreenCapBgLocText.Text + "\\" + characterModelName + "\\" + actionName;
                     DirectoryInfo dir = System.IO.Directory.CreateDirectory(outPath);
 
                     FileInfo[] files = dir.GetFiles();
