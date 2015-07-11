@@ -550,6 +550,8 @@ namespace System.Windows.Forms
             this.btnExportToAnimatedGIF.Name = "btnExportToAnimatedGIF";
             this.btnExportToAnimatedGIF.Size = new System.Drawing.Size(292, 22);
             this.btnExportToAnimatedGIF.Text = "To Animated GIF";
+            this.btnExportToAnimatedGIF.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.A)));
+            this.btnExportToAnimatedGIF.ShowShortcutKeys = true;
             this.btnExportToAnimatedGIF.Click += new System.EventHandler(this.exportToAnimatedGIFToolStripMenuItem_Click);
             // 
             // saveLocationToolStripMenuItem
@@ -565,6 +567,7 @@ namespace System.Windows.Forms
             this.ScreenCapBgLocText.Name = "ScreenCapBgLocText";
             this.ScreenCapBgLocText.Size = new System.Drawing.Size(110, 22);
             this.ScreenCapBgLocText.Text = "<null>";
+            this.ScreenCapBgLocText.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.D)));
             this.ScreenCapBgLocText.Click += new System.EventHandler(this.ScreenCapBgLocText_Click);
             // 
             // imageFormatToolStripMenuItem
@@ -1209,6 +1212,8 @@ namespace System.Windows.Forms
             this.btnLoadMoveset.Name = "btnLoadMoveset";
             this.btnLoadMoveset.Size = new System.Drawing.Size(100, 22);
             this.btnLoadMoveset.Text = "Load";
+            this.btnLoadMoveset.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.M)));
+            this.btnLoadMoveset.ShowShortcutKeys = true;
             this.btnLoadMoveset.Click += new System.EventHandler(this.btnLoadMoveset_Click);
             // 
             // btnSaveMoveset
