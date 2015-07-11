@@ -136,11 +136,9 @@ namespace System.Windows.Forms
         }
 
         bool _capture = false;
-        List<Image> images = new List<Image>();
         private void exportToAnimatedGIFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SetFrame(1);
-            images = new List<Image>();
             _loop = false;
             _capture = true;
             btnPlay_Click(null, null);
@@ -152,14 +150,12 @@ namespace System.Windows.Forms
         {
             int numberOfActions = pnlMoveset.SubActionsList.Items.Count;
             _isDoingMultiAnimationDump = true;
-            images = new List<Image>();
             for (int i = 0; i < numberOfActions; i++)
             {
                 pnlMoveset.SubActionsList.SelectedIndex = i;
                 _loop = false;
                 _capture = true;
                 String actionName = pnlMoveset.SelectedObject.ToString();
-                images.Clear();
                 if (movesToOutput.Contains(actionName))
                 {
                     _isDoingAnAnimation = true;
@@ -179,7 +175,6 @@ namespace System.Windows.Forms
                 _loop = false;
                 _capture = true;
                 String actionName = pnlMoveset.SelectedObject.ToString();
-                images.Clear();
                 if (movesToOutput.Contains(actionName))
                 {
                     _isDoingAnAnimation = true;
@@ -192,17 +187,17 @@ namespace System.Windows.Forms
 
         private static HashSet<String> movesToOutput = new HashSet<string> { 
             "Attack11", "Attack12", "Attack13", "Attack100Start", "Attack100", "AttackEnd", "AttackDash", 
-            "AttackS3Hi", "AttackS3S", "AttackS3S2", "AttackS3S3", "AttackS3Lw", "AttackHi3", "AttackLw3", 
+/*            "AttackS3Hi", "AttackS3S", "AttackS3S2", "AttackS3S3", "AttackS3Lw", "AttackHi3", "AttackLw3", 
             "AttackS4Start", "AttackS4S", "AttackS4S_", "AttackS4S2", "AttackS4S__", "AttackS4Hold", 
             "AttackHi4Start", "AttackHi4", "AttackHi4Hold", "AttackLw4Start", "AttackLw4", "AttackLw4Hold", 
-            "AttackAirN", "AttackAirF", "AttackAirB", "AttackAirHi", "AttackAirLw", "Catch", "CatchDash", 
-            "CatchTurn", "CatchAttack", "CliffAttackQuick", "CliffClimbQuick", "CliffEscapeQuick", 
-            "CliffJumpQuick1", "CliffJumpQuick2", "CliffAttackSlow", "CliffClimbSlow", "CliffEscapeSlow", 
+            "AttackAirN", "AttackAirF", "AttackAirB", "AttackAirHi", "AttackAirLw", "Catch", "CatchDash",  
+*/            "CatchTurn", "CatchAttack", "CliffAttackQuick", "CliffClimbQuick", "CliffEscapeQuick", 
+/*            "CliffJumpQuick1", "CliffJumpQuick2", "CliffAttackSlow", "CliffClimbSlow", "CliffEscapeSlow", 
             "CliffJumpSlow1", "CliffJumpSlow2", "GekikaraWait", "AppealHiR", "AppealHiL", "AppealSR", 
             "AppealSL", "AppealLwR", "AppealLwL", "SpecialN", "SpecialNTurn", "SpecialAirN", "SpecialAirNTurn", 
             "SpecialSStart", "SpecialS", "SpecialAirSStart", "SpecialAirS", "SpecialHi", "SpecialAirHi", 
             "SpecialHiCatch", "SpecialHiThrow", "SpecialLw", "SpecialLwEnd", "SpecialAirLwEndAir", 
-            "SpecialLwEndAir", "SpecialAirLwnEnd", "SpecialLwWall",};
+*/            "SpecialLwEndAir", "SpecialAirLwnEnd", "SpecialLwWall",};
 
         private static Dictionary<String, String> modelNameToCharacterName = new Dictionary<string, string> {
             {"captain", "Captain Falcon"}, {"dedede", "King Dedede"}, {"diddy", "Diddy Kong"},
@@ -219,7 +214,7 @@ namespace System.Windows.Forms
             {"zakogirl", "Blue Alloy"}, {"zakoboy ", "Red Alloy"}
 };
 
-        private void DumpImagesToFolder(Image[] images)
+        private void DumpImageToFolder(Image image, int id)
         {
             if (!String.IsNullOrEmpty(ScreenCapBgLocText.Text))
             {
@@ -242,14 +237,9 @@ namespace System.Windows.Forms
                     DirectoryInfo dir = System.IO.Directory.CreateDirectory(outPath);
 
                     FileInfo[] files = dir.GetFiles();
-                    int i = 1;
-                    foreach (Image img in images)
-                    {
-                        Bitmap bmp = new Bitmap(img);
-                        String filePath = String.Format("{0}\\{1}.png", outPath, i.ToString("D2"));
-                        bmp.Save(filePath, ImageFormat.Png);
-                        i++;
-                    }
+                    Bitmap bmp = new Bitmap(image);
+                    String filePath = String.Format("{0}\\{1}.png", outPath, id.ToString("D2"));
+                    bmp.Save(filePath, ImageFormat.Png);
                 }
                 catch
                 {

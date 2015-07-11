@@ -451,27 +451,6 @@ namespace System.Windows.Forms
             if (_animFrame <= pnlPlayback.numFrameIndex.Maximum)
                 pnlPlayback.numFrameIndex.Value = _animFrame;
         }
-        public void RecordAnimationFrames()
-        {
-            if (GetSelectedBRRESFile(TargetAnimType) == null)
-                return;
-
-            _playing = false;
-            RenderBones = false;
-            toggleBones.Checked = false;
-            EnableTransformEdit = false;
-
-            pnlMoveset.SetFrame(1);
-            images.Clear();
-
-            while (_animFrame < _maxFrame)
-            {
-                images.Add(modelPanel.GrabScreenshot(false));
-                pnlMoveset.SetFrame(_animFrame + 1);
-            }
-            DumpImagesToFolder(images.ToArray());
-            images.Clear();
-        }
 
         private bool wasOff = false;
         public bool runningAction = false;
@@ -489,6 +468,10 @@ namespace System.Windows.Forms
 
             if (_animFrame < _maxFrame)
             {
+                if (_capture)
+                {
+                    _replayFirstFrame = true;
+                }
                 animTimer.Start();
                 pnlPlayback.btnPlay.Text = "Stop";
             }
@@ -505,32 +488,44 @@ namespace System.Windows.Forms
 
             if (_capture)
             {
-                DumpImagesToFolder(images.ToArray());
-                images.Clear();
                 _capture = false;
-                _isDoingAnAnimation = false;
                 if (_isDoingMultiAnimationDump)
                 {
+                    _isDoingMultiAnimationDump = false;
                     continueDumpingAnimations();
                 }
             }
         }
+
+        bool _replayFirstFrame = false;
         private void animTimer_Tick(object sender, EventArgs e)
         {
             if (GetSelectedBRRESFile(TargetAnimType) == null)
                 return;
 
             if (_capture)
-                images.Add(modelPanel.GrabScreenshot(false));
+                DumpImageToFolder(modelPanel.GrabScreenshot(false), _animFrame);
 
             if (_animFrame >= _maxFrame)
+            {
                 if (!_loop)
                     StopAnim();
                 else
                     pnlMoveset.SetFrame(1);
+            }
             else
-                pnlMoveset.SetFrame(_animFrame + 1);
-
+            {
+                if (_replayFirstFrame)
+                {
+                    _animFrame = 1;
+                    pnlMoveset.SetFrame(1);
+                    _replayFirstFrame = false;
+                }
+                else
+                {
+                    pnlMoveset.SetFrame(_animFrame + 1);
+                }
+            }
         }
     }
 }
