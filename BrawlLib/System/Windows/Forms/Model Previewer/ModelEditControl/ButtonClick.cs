@@ -141,6 +141,7 @@ namespace System.Windows.Forms
             SetFrame(1);
             _loop = false;
             _capture = true;
+            _isDoingMultiAnimationDump = false;
             btnPlay_Click(null, null);
         }
 
@@ -161,9 +162,10 @@ namespace System.Windows.Forms
                     _isDoingAnAnimation = true;
                     SetFrame(1);
                     PlayAnim();
-                    break;
+                    return;
                 }
             }
+            _isDoingMultiAnimationDump = false;
         }
 
         private void continueDumpingAnimations()
@@ -180,24 +182,25 @@ namespace System.Windows.Forms
                     _isDoingAnAnimation = true;
                     SetFrame(1);
                     PlayAnim();
-                    break;
+                    return;
                 }
             }
+            _isDoingMultiAnimationDump = false;
         }
 
         private static HashSet<String> movesToOutput = new HashSet<string> { 
             "Attack11", "Attack12", "Attack13", "Attack100Start", "Attack100", "AttackEnd", "AttackDash", 
-/*            "AttackS3Hi", "AttackS3S", "AttackS3S2", "AttackS3S3", "AttackS3Lw", "AttackHi3", "AttackLw3", 
+            "AttackS3Hi", "AttackS3S", "AttackS3S2", "AttackS3S3", "AttackS3Lw", "AttackHi3", "AttackLw3", 
             "AttackS4Start", "AttackS4S", "AttackS4S_", "AttackS4S2", "AttackS4S__", "AttackS4Hold", 
             "AttackHi4Start", "AttackHi4", "AttackHi4Hold", "AttackLw4Start", "AttackLw4", "AttackLw4Hold", 
             "AttackAirN", "AttackAirF", "AttackAirB", "AttackAirHi", "AttackAirLw", "Catch", "CatchDash",  
-*/            "CatchTurn", "CatchAttack", "CliffAttackQuick", "CliffClimbQuick", "CliffEscapeQuick", 
-/*            "CliffJumpQuick1", "CliffJumpQuick2", "CliffAttackSlow", "CliffClimbSlow", "CliffEscapeSlow", 
+            "CatchTurn", "CatchAttack", "CliffAttackQuick", "CliffClimbQuick", "CliffEscapeQuick", 
+            "CliffJumpQuick1", "CliffJumpQuick2", "CliffAttackSlow", "CliffClimbSlow", "CliffEscapeSlow", 
             "CliffJumpSlow1", "CliffJumpSlow2", "GekikaraWait", "AppealHiR", "AppealHiL", "AppealSR", 
             "AppealSL", "AppealLwR", "AppealLwL", "SpecialN", "SpecialNTurn", "SpecialAirN", "SpecialAirNTurn", 
             "SpecialSStart", "SpecialS", "SpecialAirSStart", "SpecialAirS", "SpecialHi", "SpecialAirHi", 
             "SpecialHiCatch", "SpecialHiThrow", "SpecialLw", "SpecialLwEnd", "SpecialAirLwEndAir", 
-*/            "SpecialLwEndAir", "SpecialAirLwnEnd", "SpecialLwWall",};
+            "SpecialLwEndAir", "SpecialAirLwnEnd", "SpecialLwWall",};
 
         private static Dictionary<String, String> modelNameToCharacterName = new Dictionary<string, string> {
             {"captain", "Captain Falcon"}, {"dedede", "King Dedede"}, {"diddy", "Diddy Kong"},
@@ -220,6 +223,11 @@ namespace System.Windows.Forms
             {
                 try
                 {
+                    int frameFileId = id - 1;
+                    if (frameFileId == 0)
+                    {
+                        return;
+                    }
                     String actionName = pnlMoveset.SelectedObject.ToString();
                     String characterModelName = models.SelectedItem.ToString();
 
@@ -238,7 +246,7 @@ namespace System.Windows.Forms
 
                     FileInfo[] files = dir.GetFiles();
                     Bitmap bmp = new Bitmap(image);
-                    String filePath = String.Format("{0}\\{1}.png", outPath, id.ToString("D2"));
+                    String filePath = String.Format("{0}\\{1}.png", outPath, frameFileId.ToString("D2"));
                     bmp.Save(filePath, ImageFormat.Png);
                 }
                 catch

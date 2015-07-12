@@ -419,7 +419,7 @@ namespace System.Windows.Forms
             //if (_animFrame == index)
             //    return;
 
-            if (index > _maxFrame || index < 0)
+            if (index > _maxFrame + 1 || index < 0)
                 return;
 
             index = TargetModel == null ? 0 : index;
@@ -465,13 +465,13 @@ namespace System.Windows.Forms
             EnableTransformEdit = false;
 
             pnlMoveset.SetFrame(1);
+            if (_capture)
+            {
+                _replayFirstFrame = true;
+            }
 
             if (_animFrame < _maxFrame)
             {
-                if (_capture)
-                {
-                    _replayFirstFrame = true;
-                }
                 animTimer.Start();
                 pnlPlayback.btnPlay.Text = "Stop";
             }
@@ -491,7 +491,6 @@ namespace System.Windows.Forms
                 _capture = false;
                 if (_isDoingMultiAnimationDump)
                 {
-                    _isDoingMultiAnimationDump = false;
                     continueDumpingAnimations();
                 }
             }
@@ -506,7 +505,7 @@ namespace System.Windows.Forms
             if (_capture)
                 DumpImageToFolder(modelPanel.GrabScreenshot(false), _animFrame);
 
-            if (_animFrame >= _maxFrame)
+            if (_animFrame > _maxFrame)
             {
                 if (!_loop)
                     StopAnim();
